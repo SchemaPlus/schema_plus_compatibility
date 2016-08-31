@@ -5,11 +5,11 @@ require 'schema_plus/compatibility/version'
 
 Gem::Specification.new do |gem|
   gem.name          = "schema_plus_compatibility"
-  gem.version       = SchemaPlus::ForeignKeys::VERSION
+  gem.version       = SchemaPlus::Compatibility::VERSION
   gem.authors       = ["ronen barzel", "boaz yaniv"]
   gem.email         = ["ronen@barzel.org", "boazyan@gmail.com"]
-  gem.summary       = %q{Extended support for foreign key constraints in ActiveRecord}
-  gem.description   = %q{Extended support for foreign key constraints in ActiveRecord, including: definition as column attribute; deferrable; and SQLite3 support; cleaner dumps; and more!}
+  gem.summary       = %q{Compatibility helpers for the SchemaPlus family of gems}
+  gem.description   = %q{Compatibility helpers for the SchemaPlus family of gems}
   gem.homepage      = "https://github.com/SchemaPlus/schema_plus_compatibility"
   gem.license       = "MIT"
 

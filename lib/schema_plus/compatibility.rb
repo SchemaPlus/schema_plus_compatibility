@@ -1,4 +1,4 @@
-require 'schema_plus/core'
+require 'schema_monkey'
 
 require_relative 'compatibility/version'
 require_relative 'compatibility/active_record/connection_adapters/abstract_adapter'
