@@ -19,13 +19,9 @@ describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
     end
 
     it "does not create deprecation" do
-      begin
-        save_behavior = ActiveSupport::Deprecation.behavior
-        ActiveSupport::Deprecation.behavior = :raise
-        expect { connection.tables_without_deprecation }.not_to raise_error
-      ensure
-        ActiveSupport::Deprecation.behavior = save_behavior
-      end
+      expect_not_deprecated {
+        connection.tables_without_deprecation
+      }
     end
 
     it "lists all tables" do

@@ -6,19 +6,13 @@ describe ActiveRecord::Migration do
   let(:connection) { ActiveRecord::Base.connection }
 
   it "does not create deprecation" do
-    begin
-      save_behavior = ActiveSupport::Deprecation.behavior
-      ActiveSupport::Deprecation.behavior = :raise
-      expect { 
-        Class.new ActiveRecord::Migration.latest_version do
-          define_method(:up) do
-            create_table :foo
-          end
+    expect_not_deprecated {
+      Class.new ActiveRecord::Migration.latest_version do
+        define_method(:up) do
+          create_table :foo
         end
-      }.not_to raise_error
-    ensure
-      ActiveSupport::Deprecation.behavior = save_behavior
-    end
+      end
+    }
   end
 
   it "works with the latest migration object version" do
