@@ -1,7 +1,6 @@
 [![Gem Version](https://badge.fury.io/rb/schema_plus_compatibility.svg)](http://badge.fury.io/rb/schema_plus_compatibility)
 [![Build Status](https://secure.travis-ci.org/SchemaPlus/schema_plus_compatibility.svg)](http://travis-ci.org/SchemaPlus/schema_plus_compatibility)
 [![Coverage Status](https://img.shields.io/coveralls/SchemaPlus/schema_plus_compatibility.svg)](https://coveralls.io/r/SchemaPlus/schema_plus_compatibility)
-[![Dependency Status](https://gemnasium.com/lomba/schema_plus_compatibility.svg)](https://gemnasium.com/SchemaPlus/schema_plus_compatibility)
 
 # SchemaPlus::Compatibility
 
