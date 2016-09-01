@@ -21,10 +21,6 @@ describe ActiveRecord::Migration do
     end
   end
 
-  it "returns latest migration version" do
-    expect(ActiveRecord::Migration.latest_version).to eq latest
-  end
-
   it "should work with the latest migration object version" do
     ActiveRecord::Migration.suppress_messages do
       begin
