@@ -2,30 +2,20 @@
 require 'spec_helper'
 
 describe ActiveRecord::Migration do
-  before(:each) do
-    define_schema do
-      create_table :users, :force => true do |t|
-        t.string :bla
-      end
 
-      create_table :posts, :force => true do |t|
-        t.string :content
-      end
-    end
-
-    class Post < ::ActiveRecord::Base ; end
-    @model = Post
-  end
+  let(:connection) { ActiveRecord::Base.connection }
 
   it "should support the latest migration object version" do
-    migration = Class.new ::ActiveRecord::Migration.latest_version do
-      create_table :orders, :force => true do |t|
-        t.string :bar
+    ActiveRecord::Migration.suppress_messages do
+      begin
+        migration = Class.new ::ActiveRecord::Migration.latest_version do
+          create_table :newtable, :force => true
+        end
+        migration.migrate(:up)
+        expect(connection.tables_without_deprecation).to include 'newtable'
+      ensure
+        connection.drop_table :newtable, if_exists: true
       end
     end
-    ActiveRecord::Migration.suppress_messages do
-      migration.migrate(:up)
-    end
-    expect(@model.connection.tables).to include 'orders'
   end
 end
