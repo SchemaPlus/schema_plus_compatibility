@@ -2,34 +2,30 @@
 require 'spec_helper'
 
 describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
-  context "when there are multiple tables" do
-    before(:each) do
-      define_schema do
-        create_table :users, :force => true do |t|
-          t.string :bla
-        end
 
-        create_table :members, :force => true do |t|
-          t.string :foo
-        end
+  context "tables_without_deprecation" do
 
-        create_table :comments, :force => true do |t|
-          t.string :bar
-        end
+    let(:connection) { ActiveRecord::Base.connection }
 
-        create_table :posts, :force => true do |t|
-          t.string :content
-        end
+    around(:each) do |example|
+      begin
+        connection.create_table :t1, force: true
+        connection.create_table :t2, force: true
+        example.run
+      ensure
+        connection.drop_table :t1, if_exists: true
+        connection.drop_table :t2, if_exists: true
       end
-
-      class Post < ::ActiveRecord::Base ; end
-      @model = Post
     end
 
-    it "should support listing tables without deprecation warnings" do
-      # Ignore this table which only exists on AR5.0
-      tables = @model.connection.tables - ['ar_internal_metadata']
-      expect(tables).to match_array %w{users members comments posts}
+    it "does not create deprecation" do
+      expect_not_deprecated {
+        connection.tables_without_deprecation
+      }
+    end
+
+    it "lists all tables" do
+      expect(connection.tables_without_deprecation).to match_array %w{t1 t2}
     end
   end
 end
