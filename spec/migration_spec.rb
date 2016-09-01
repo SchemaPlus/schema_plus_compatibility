@@ -21,7 +21,7 @@ describe ActiveRecord::Migration do
     end
   end
 
-  it "should work with the latest migration object version" do
+  it "works with the latest migration object version" do
     ActiveRecord::Migration.suppress_messages do
       begin
         migration = Class.new ::ActiveRecord::Migration.latest_version do
