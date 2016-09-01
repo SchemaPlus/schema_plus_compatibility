@@ -2,17 +2,30 @@
 require 'spec_helper'
 
 describe ActiveRecord::Migration do
+  before(:each) do
+    define_schema do
+      create_table :users, :force => true do |t|
+        t.string :bla
+      end
 
-  let (:latest) {
-    if Gem::Requirement.new("~> 5.0.0").satisfied_by?(::ActiveRecord.version)
-      ActiveRecord::Migration[5.0]
-    elsif Gem::Requirement.new("~> 4.2.0").satisfied_by?(::ActiveRecord.version)
-      ActiveRecord::Migration
+      create_table :posts, :force => true do |t|
+        t.string :content
+      end
     end
-  }
 
-  it "returns latest migration version" do
-    expect(ActiveRecord::Migration.latest_version).to eq latest
+    class Post < ::ActiveRecord::Base ; end
+    @model = Post
   end
 
+  it "should support the latest migration object version" do
+    migration = Class.new ::ActiveRecord::Migration.latest_version do
+      create_table :orders, :force => true do |t|
+        t.string :bar
+      end
+    end
+    ActiveRecord::Migration.suppress_messages do
+      migration.migrate(:up)
+    end
+    expect(@model.connection.tables).to include 'orders'
+  end
 end
