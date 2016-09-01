@@ -11,6 +11,22 @@ describe ActiveRecord::Migration do
     end
   }
 
+  it "does not create deprecation" do
+    begin
+      save_behavior = ActiveSupport::Deprecation.behavior
+      ActiveSupport::Deprecation.behavior = :raise
+      expect { 
+        Class.new ActiveRecord::Migration.latest_version do
+          define_method(:up) do
+            create_table :foo
+          end
+        end
+      }.not_to raise_error
+    ensure
+      ActiveSupport::Deprecation.behavior = save_behavior
+    end
+  end
+
   it "returns latest migration version" do
     expect(ActiveRecord::Migration.latest_version).to eq latest
   end
