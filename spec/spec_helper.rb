@@ -14,30 +14,4 @@ SchemaDev::Rspec.setup
 
 Dir[File.dirname(__FILE__) + "/support/**/*.rb"].each {|f| require f}
 
-RSpec.configure do |config|
-  config.warnings = true
-  config.around(:each) do |example|
-    ActiveRecord::Migration.suppress_messages do
-      begin
-        example.run
-      ensure
-        ActiveRecord::Base.connection.tables_without_deprecation.each do |table|
-          ActiveRecord::Migration.drop_table table, force: :cascade
-        end
-      end
-    end
-  end
-end
-
-def define_schema(config={}, &block)
-  ActiveRecord::Migration.suppress_messages do
-    ActiveRecord::Schema.define do
-      connection.tables_without_deprecation.each do |table|
-        drop_table table, force: :cascade
-      end
-      instance_eval &block
-    end
-  end
-end
-
 SimpleCov.command_name "[ruby#{RUBY_VERSION}-activerecord#{::ActiveRecord.version}-#{ActiveRecord::Base.connection.adapter_name}]"
