@@ -5,14 +5,6 @@ describe ActiveRecord::Migration do
 
   let(:connection) { ActiveRecord::Base.connection }
 
-  let (:latest) {
-    if Gem::Requirement.new("~> 5.0.0").satisfied_by?(::ActiveRecord.version)
-      ActiveRecord::Migration[5.0]
-    elsif Gem::Requirement.new("~> 4.2.0").satisfied_by?(::ActiveRecord.version)
-      ActiveRecord::Migration
-    end
-  }
-
   it "does not create deprecation" do
     begin
       save_behavior = ActiveSupport::Deprecation.behavior
