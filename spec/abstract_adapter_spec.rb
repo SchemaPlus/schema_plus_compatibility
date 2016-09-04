@@ -7,6 +7,8 @@ describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
 
     let(:connection) { ActiveRecord::Base.connection }
 
+    # TODO: Create views (with raw SQL or using schema_plus_views?) for each
+    #       DB type and make sure they aren't included.
     around(:each) do |example|
       begin
         connection.create_table :t1, force: true
