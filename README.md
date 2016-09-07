@@ -25,9 +25,9 @@ gem.add_dependency "schema_plus_compatibility" # in a .gemspec
 
 SchemaPlus::Compatibility provides the following new methods:
 
-* `connection.tables_without_deprecation`
+* `connection.tables_only`
 
-  In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method suppresses the deprecation, and continues to be ill-defined as to whether it returns tables as well as views.
+  In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version for all supported databases (MySQL, PostgreSQL and SQLite) and even for custom AR5 database connection adapters (but not AR4.2 adapters, since they have no notion of views).
 
 * `Migration.latest`
 
@@ -48,8 +48,7 @@ SchemaPlus::Compatibility is tested on:
 
 ## History
 
-* 0.1.1 - Fix issue with deprecation warnings still being raised
-*         (they were just being supressed, but tests still failed)
+* 0.2.0 - replace the ill-defined `connection.tables_without_deprecation` with `connection.tables_only` which truly returns solely tables.
 * 0.1.0 - Initial release
 
 ## Development & Testing

@@ -21,7 +21,7 @@ describe ActiveRecord::Migration do
           create_table :newtable, :force => true
         end
         migration.migrate(:up)
-        expect(connection.tables_without_deprecation).to include 'newtable'
+        expect(connection.tables_only).to include 'newtable'
       ensure
         connection.drop_table :newtable, if_exists: true
       end

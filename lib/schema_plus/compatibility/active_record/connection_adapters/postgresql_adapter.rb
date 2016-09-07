@@ -2,7 +2,7 @@ module SchemaPlus::Compatibility
   module ActiveRecord
     module ConnectionAdapters
       module PostgreSQLAdapter
-        def tables_without_deprecation
+        def tables_only
           select_values(<<-SQL, "SCHEMA")
             SELECT c.relname
             FROM pg_class c
