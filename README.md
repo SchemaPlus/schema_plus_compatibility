@@ -48,6 +48,8 @@ SchemaPlus::Compatibility is tested on:
 
 ## History
 
+* 0.1.1 - Fix issue with deprecation warnings still being raised
+*         (they were just being supressed, but tests still failed)
 * 0.1.0 - Initial release
 
 ## Development & Testing

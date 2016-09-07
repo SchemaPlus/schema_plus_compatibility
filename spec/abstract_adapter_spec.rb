@@ -1,5 +1,8 @@
 # encoding: utf-8
 require 'spec_helper'
+require_relative 'support/views'
+
+SchemaMonkey.register ViewSupport
 
 describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
 
@@ -7,16 +10,18 @@ describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
 
     let(:connection) { ActiveRecord::Base.connection }
 
-    # TODO: Create views (with raw SQL or using schema_plus_views?) for each
-    #       DB type and make sure they aren't included.
     around(:each) do |example|
       begin
         connection.create_table :t1, force: true
         connection.create_table :t2, force: true
+        connection.create_dummy_view :v1
+        connection.create_dummy_view :v2
         example.run
       ensure
         connection.drop_table :t1, if_exists: true
         connection.drop_table :t2, if_exists: true
+        connection.drop_dummy_view :v1
+        connection.drop_dummy_view :v2
       end
     end
 
