@@ -11,9 +11,20 @@ RSpec.shared_examples 'tables_only_tests' do
   end
 
   it "lists all tables" do
-    expect(connection.tables_only).to match_array %w[t1 t2]
+    t = connection.tables_only
+
+    # Tables may include ar_internal_metadata on AR5
+    if t.include? "ar_internal_metadata"
+      expect(connection.tables_only).to match_array %w[t1 t2 ar_internal_metadata]
+    else
+      expect(connection.tables_only).to match_array %w[t1 t2]
+    end
   end
 
+  it "user_tables_only doesn't list internal tables" do
+    # user_tables_only shouldn't return ar_internal_metadata
+    expect(connection.tables_only).to match_array %w[t1 t2]
+  end
 end
 
 
@@ -23,6 +34,9 @@ describe ActiveRecord::ConnectionAdapters::AbstractAdapter do
 
     around(:each) do |example|
       begin
+        connection.tables_only.each do |table|
+          connection.drop_table table, force: :cascade
+        end
         connection.create_table :t1, force: true
         connection.create_table :t2, force: true
         connection.create_dummy_view :v1

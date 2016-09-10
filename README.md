@@ -28,6 +28,10 @@ SchemaPlus::Compatibility provides the following new methods:
 * `connection.tables_only`
 
   In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version for all supported databases (MySQL, PostgreSQL and SQLite) and even for custom AR5 database connection adapters (but not AR4.2 adapters, since they have no notion of views).
+  
+* `connection.user_tables_only`
+
+  In AR 5.0, an internal table called 'ar_internal_metadata' is added by ActiveRecord to keep track of the Rails environment type and avoid disastrous operations on production environment. The existence of this table trips up some tests (and possibly real code) which doesn't expect to see it. This function attempts to help this code by returning a copy of the tables list without internal AR tables.
 
 * `Migration.latest_version`
 
