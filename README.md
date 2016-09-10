@@ -29,7 +29,7 @@ SchemaPlus::Compatibility provides the following new methods:
 
   In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version for all supported databases (MySQL, PostgreSQL and SQLite) and even for custom AR5 database connection adapters (but not AR4.2 adapters, since they have no notion of views).
 
-* `Migration.latest`
+* `Migration.latest_version`
 
   In AR 5.0, `ActiveRecord::Migration` is versioned using `[]`; in AR 4.2 it's not versioned.  This method returns the latest migration version in both AR 4.2 and AR 5.0
 
