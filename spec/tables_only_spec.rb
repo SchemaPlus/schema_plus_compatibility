@@ -23,7 +23,7 @@ RSpec.shared_examples 'tables_only_tests' do
 
   it "user_tables_only doesn't list internal tables" do
     # user_tables_only shouldn't return ar_internal_metadata
-    expect(connection.tables_only).to match_array %w[t1 t2]
+    expect(connection.user_tables_only).to match_array %w[t1 t2]
   end
 end
 
