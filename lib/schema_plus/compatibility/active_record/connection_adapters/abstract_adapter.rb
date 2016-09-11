@@ -3,9 +3,7 @@ module SchemaPlus::Compatibility
     module ConnectionAdapters
       module AbstractAdapter
         def user_tables_only
-          t = tables_only
-          t.delete "ar_internal_metadata"
-          t
+          tables_only - ["ar_internal_metadata"]
         end
       end
     end
