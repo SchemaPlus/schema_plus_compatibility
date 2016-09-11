@@ -18,6 +18,7 @@ describe "tables_only" do
       connection.tables_only.each do |table|
         connection.drop_table table, force: :cascade
       end
+      ActiveRecord::InternalMetadata.create_table if ActiveRecord::VERSION::MAJOR >= 5 # ensure metadata table exists
       connection.create_table :t1
       connection.create_table :t2
       create_dummy_view :v1, :t1
@@ -36,19 +37,19 @@ describe "tables_only" do
     connection.tables_only
   end
 
-  it "lists all tables" do
-    t = connection.tables_only
-
-    # Tables may include ar_internal_metadata on AR5
-    if t.include? "ar_internal_metadata"
-      expect(connection.tables_only).to match_array %w[t1 t2 ar_internal_metadata]
+  let(:ar_internal_tables) {
+    if ActiveRecord::VERSION::MAJOR >= 5
+      [ActiveRecord::InternalMetadata.table_name]
     else
-      expect(connection.tables_only).to match_array %w[t1 t2]
+      []
     end
+  }
+
+  it "lists all tables" do
+    expect(connection.tables_only).to match_array %w[t1 t2] + ar_internal_tables
   end
 
   it "user_tables_only doesn't list internal tables" do
-    # user_tables_only shouldn't return ar_internal_metadata
     expect(connection.user_tables_only).to match_array %w[t1 t2]
   end
 

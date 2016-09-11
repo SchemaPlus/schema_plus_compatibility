@@ -31,11 +31,11 @@ SchemaPlus::Compatibility provides the following new methods:
   
 * `connection.user_tables_only`
 
-  In AR 5.0, an internal table called 'ar_internal_metadata' is added by ActiveRecord to keep track of the Rails environment type and avoid disastrous operations on production environment. The existence of this table trips up some tests (and possibly real code) which doesn't expect to see it. This function attempts to help this code by returning a copy of the tables list without internal AR tables.
+  In AR 5.0, an internal table (`ActiveRecord::InternalMetadata.table_name`) is added by ActiveRecord. The existence of this table trips up some tests (and possibly real code) which doesn't expect to see it. This method returns all tables except the internal metadata table.
 
 * `Migration.latest_version`
 
-  In AR 5.0, `ActiveRecord::Migration` is versioned using `[]`; in AR 4.2 it's not versioned.  This method returns the latest migration version in both AR 4.2 and AR 5.0
+  In AR 5.0, `ActiveRecord::Migration` is versioned using `[]`; in AR 4.2 it's not versioned, making it awkward to create migrations cross-version.  This method returns the latest migration version in both AR 4.2 and AR 5.0.
 
 Note that the methods provided by SchemaPlus::Compatibility are subject to arbitrary change if/when SchemaPlus supports new versions of AR and/or drops support for old versions.  But SchemaPlus::Compatibility will of course follow semantic versioning.
 
