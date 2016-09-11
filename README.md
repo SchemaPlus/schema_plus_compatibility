@@ -25,13 +25,17 @@ gem.add_dependency "schema_plus_compatibility" # in a .gemspec
 
 SchemaPlus::Compatibility provides the following new methods:
 
-* `connection.tables_without_deprecation`
+* `connection.tables_only`
 
-  In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method suppresses the deprecation, and continues to be ill-defined as to whether it returns tables as well as views.
+  In AR 5.0, `connection.tables` is deprecated for some db adapters, and in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version.
+  
+* `connection.user_tables_only`
 
-* `Migration.latest`
+  In AR 5.0, an internal table (`ActiveRecord::InternalMetadata.table_name`) is added by ActiveRecord. The existence of this table trips up some tests (and possibly real code) which doesn't expect to see it. This method returns all tables except the internal metadata table.
 
-  In AR 5.0, `ActiveRecord::Migration` is versioned using `[]`; in AR 4.2 it's not versioned.  This method returns the latest migration version in both AR 4.2 and AR 5.0
+* `Migration.latest_version`
+
+  In AR 5.0, `ActiveRecord::Migration` is versioned using `[]`; in AR 4.2 it's not versioned, making it awkward to create migrations cross-version.  This method returns the latest migration version in both AR 4.2 and AR 5.0.
 
 Note that the methods provided by SchemaPlus::Compatibility are subject to arbitrary change if/when SchemaPlus supports new versions of AR and/or drops support for old versions.  But SchemaPlus::Compatibility will of course follow semantic versioning.
 
@@ -48,6 +52,7 @@ SchemaPlus::Compatibility is tested on:
 
 ## History
 
+* 0.2.0 - replace the ill-defined `connection.tables_without_deprecation` with `connection.tables_only` which truly returns solely tables.
 * 0.1.0 - Initial release
 
 ## Development & Testing
