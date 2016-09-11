@@ -27,7 +27,7 @@ SchemaPlus::Compatibility provides the following new methods:
 
 * `connection.tables_only`
 
-  In AR 5.0, `connection.tables` is deprecated for some db adapters, and as in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version for all supported databases (MySQL, PostgreSQL and SQLite) and even for custom AR5 database connection adapters (but not AR4.2 adapters, since they have no notion of views).
+  In AR 5.0, `connection.tables` is deprecated for some db adapters, and in AR 4.2 it may actually returns views (if any are defined) as well. This method consistently returns just tables regardless of the ActiveRecord version.
   
 * `connection.user_tables_only`
 
