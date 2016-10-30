@@ -12,16 +12,15 @@ module SchemaPlus::Compatibility
 
         # Filter for user  data sources
         def _filter_user_data_sources_sql
-          sql = "AND c.relname NOT LIKE 'pg\\_%'"
-          sql += " AND schemaname != 'postgis'" if adapter_name == 'PostGIS'
+          sql = "c.relname NOT LIKE 'pg\\_%'"
+          sql += " AND n.nspname != 'postgis'" if adapter_name == 'PostGIS'
           sql
         end
 
         def _pg_relations(rel_types, extra_sql = nil)
           sql = _pg_relations_sql(rel_types)
           if extra_sql
-            sql << "\n"
-            sql << extra_sql
+            sql << "\nAND (#{extra_sql})"
           end
           select_values(sql, 'SCHEMA')
         end

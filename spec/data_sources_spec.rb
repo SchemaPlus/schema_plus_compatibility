@@ -95,7 +95,7 @@ if DataSourceHelpers.is_postgresql?
     end
 
     it 'supports extra SQL code' do
-      result = (connection._pg_relations(%w[r v m], "AND c.relname NOT LIKE '%2'"))
+      result = (connection._pg_relations(%w[r v m], "c.relname NOT LIKE '%2'"))
       expect(result).to include *%w[t1 v1 mv1]
       expect(result).not_to include *%w[t2 v2 mv2]
     end
