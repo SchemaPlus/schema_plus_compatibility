@@ -51,7 +51,7 @@ SchemaPlus::Compatibility is tested on:
 
 <!-- SCHEMA_DEV: MATRIX - end -->
 
-## History
+## Release Notes
 
 * 0.2.0 - replace the ill-defined `connection.tables_without_deprecation` with `connection.tables_only` which truly returns solely tables.
 * 0.1.0 - Initial release
