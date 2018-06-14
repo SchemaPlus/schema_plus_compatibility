@@ -54,6 +54,7 @@ SchemaPlus::Compatibility is tested on:
 
 ## Release Notes
 
+* 0.4.0 - Allow AR 5.2
 * 0.3.0 - Allow AR 5.1
 * 0.2.0 - Replace the ill-defined `connection.tables_without_deprecation` with `connection.tables_only` which truly returns solely tables.
 * 0.1.0 - Initial release
