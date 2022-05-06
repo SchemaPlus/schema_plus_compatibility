@@ -18,7 +18,7 @@ describe "tables_only" do
       connection.tables_only.each do |table|
         connection.drop_table table, force: :cascade
       end
-      ActiveRecord::InternalMetadata.create_table if ActiveRecord::VERSION::MAJOR >= 5 # ensure metadata table exists
+      ActiveRecord::InternalMetadata.create_table
       connection.create_table :t1
       connection.create_table :t2
       create_dummy_view :v1, :t1
@@ -38,11 +38,7 @@ describe "tables_only" do
   end
 
   let(:ar_internal_tables) {
-    if ActiveRecord::VERSION::MAJOR >= 5
-      [ActiveRecord::InternalMetadata.table_name]
-    else
-      []
-    end
+    [ActiveRecord::InternalMetadata.table_name]
   }
 
   it "lists all tables" do
