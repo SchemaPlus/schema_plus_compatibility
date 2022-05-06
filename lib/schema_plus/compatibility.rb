@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'schema_monkey'
 
 require_relative 'compatibility/version'
