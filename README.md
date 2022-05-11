@@ -2,6 +2,13 @@
 [![Build Status](https://github.com/SchemaPlus/schema_plus_compatibility/actions/workflows/prs.yml/badge.svg)](https://github.com/SchemaPlus/schema_plus_compatibility/actions)
 [![Coverage Status](https://coveralls.io/repos/github/SchemaPlus/schema_plus_compatibility/badge.svg)](https://coveralls.io/github/SchemaPlus/schema_plus_compatibility)
 
+# Deprecation notice
+
+This gem is officially deprecated and will no longer be maintained.
+
+Newer Active record versions correclty ignore views from the connection.tables list so this gem is no longer needed.
+Also as we are only supporting AR 5.2+ there is no need for the "latest\_version" method either.
+
 # SchemaPlus::Compatibility
 
 SchemaPlus::Compatibility provides compatibility support for developing and testing using different versions of ActiveRecord.
@@ -51,8 +58,13 @@ SchemaPlus::Compatibility is tested on:
 * ruby **2.7** with activerecord **5.2**, using **mysql2**, **sqlite3** or **postgresql:9.6**
 * ruby **2.7** with activerecord **6.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
 * ruby **2.7** with activerecord **6.1**, using **mysql2**, **sqlite3** or **postgresql:9.6**
+* ruby **2.7** with activerecord **7.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
 * ruby **3.0** with activerecord **6.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
 * ruby **3.0** with activerecord **6.1**, using **mysql2**, **sqlite3** or **postgresql:9.6**
+* ruby **3.0** with activerecord **7.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
+* ruby **3.1** with activerecord **6.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
+* ruby **3.1** with activerecord **6.1**, using **mysql2**, **sqlite3** or **postgresql:9.6**
+* ruby **3.1** with activerecord **7.0**, using **mysql2**, **sqlite3** or **postgresql:9.6**
 
 <!-- SCHEMA_DEV: MATRIX - end -->
 

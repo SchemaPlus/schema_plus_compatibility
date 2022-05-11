@@ -21,11 +21,11 @@ Gem::Specification.new do |gem|
 
   gem.required_ruby_version = ">= 2.5.0"
 
-  gem.add_dependency "activerecord", ">= 5.2", "< 7.0"
-  gem.add_dependency "schema_monkey", "~> 3.0"
+  gem.add_dependency "activerecord", ">= 5.2", "< 7.1"
+  gem.add_dependency "schema_monkey", "~> 3.0.2"
 
   gem.add_development_dependency "bundler"
   gem.add_development_dependency "rake", "~> 13.0"
   gem.add_development_dependency "rspec", "~> 3.0"
-  gem.add_development_dependency "schema_dev", "~> 4.1"
+  gem.add_development_dependency "schema_dev", "~> 4.2.0"
 end
